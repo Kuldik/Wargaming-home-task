@@ -1,4 +1,18 @@
 {
+  "name": "wargaiming-home-task",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://Kuldik.github.io/Wargaiming-home-task/",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 5173",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "stylelint": "stylelint \"src/**/*.{scss,css}\"",
+    "test": "vitest",
+    "deploy": "gh-pages -d dist"
+  },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",

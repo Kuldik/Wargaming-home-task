@@ -1,0 +1,24 @@
+:root[data-theme='dark'] {
+  --bg: #0d0f12;
+  --panel: #14171c;
+  --text: #e6e9ef;
+  --muted: #a1a8b3;
+  --border: #232731;
+
+  /* кнопки orange */
+  --button-orange-1: #ffd79c;
+  --button-orange-5: #ffb44d;
+  --button-orange-6: #ff8c2a;
+}
+
+:root[data-theme='light'] {
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --text: #0b0d11;
+  --muted: #4b5563;
+  --border: #e5e7eb;
+
+  --button-orange-1: #ffd79c;
+  --button-orange-5: #ffb44d;
+  --button-orange-6: #ff8c2a;
+}

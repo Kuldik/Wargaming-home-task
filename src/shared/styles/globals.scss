@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('/src/shared/assets/fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('/src/shared/assets/fonts/Roboto/Roboto-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Roboto', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.b {
+  &.b-orange.b-focus {
+    background-image: radial-gradient(85.3% 129.17% at 50% 95.83%, var(--button-orange-1) 0%, rgba(245, 201, 116, 0) 53.65%),
+      linear-gradient(180deg, var(--button-orange-5) 0%, var(--button-orange-6) 100%);
+    border: none;
+    color: #1b1003;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+}
