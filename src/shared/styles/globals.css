@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 /* ⬇️ ПРАВИЛЬНЫЙ путь: из /public не пишем, просто '/fonts/...' */
 @font-face {
   font-family: "Roboto";
@@ -15,9 +14,13 @@
   font-style: normal;
   font-display: swap;
 }
+* {
+  box-sizing: border-box;
+}
 
-* { box-sizing: border-box; }
-html, body, #root { height: 100%; }
+html, body, #root {
+  height: 100%;
+}
 
 /* ⬇️ Больше НЕ красим body по умолчанию — делаем это только когда видео-режим выключен */
 html:not(.with-video) body {
@@ -31,8 +34,7 @@ body {
 }
 
 .b.b-orange.b-focus {
-  background-image: radial-gradient(85.3% 129.17% at 50% 95.83%, var(--button-orange-1) 0%, rgba(245, 201, 116, 0) 53.65%), 
-                    linear-gradient(180deg, var(--button-orange-5) 0%, var(--button-orange-6) 100%);
+  background-image: radial-gradient(85.3% 129.17% at 50% 95.83%, var(--button-orange-1) 0%, rgba(245, 201, 116, 0) 53.65%), linear-gradient(180deg, var(--button-orange-5) 0%, var(--button-orange-6) 100%);
   border: none;
   color: #1b1003;
   padding: 10px 16px;
@@ -42,12 +44,15 @@ body {
 }
 
 /* приложение поверх видео */
-#root { position: relative; z-index: 1; }
+#root {
+  position: relative;
+  z-index: 1;
+}
 
 /* видео-режим: всё — прозрачное */
-html.with-video, 
+html.with-video,
 html.with-video body,
 html.with-video #root {
   background: transparent !important;
   background-color: transparent !important;
-}
+}/*# sourceMappingURL=globals.css.map */
