@@ -1,5 +1,4 @@
 @charset "UTF-8";
-/* ⬇️ ПРАВИЛЬНЫЙ путь: из /public не пишем, просто '/fonts/...' */
 @font-face {
   font-family: "Roboto";
   src: url("/fonts/Roboto/Roboto-Italic-VariableFont_wdth,wght.ttf") format("truetype");
@@ -22,15 +21,47 @@ html, body, #root {
   height: 100%;
 }
 
-/* ⬇️ Больше НЕ красим body по умолчанию — делаем это только когда видео-режим выключен */
-html:not(.with-video) body {
-  background: var(--bg);
-  color: var(--text);
-}
-
 body {
   margin: 0;
-  font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-family: "Roboto", system-ui, -apple-system, Arial, sans-serif;
+}
+
+/* ---------- ТЕМЫ ---------- */
+:root {
+  /* светлая */
+  --text: #101418;
+  --text-muted: rgba(16,20,24,.72);
+  --panel: #ffffff;
+  --panel-weak: #f7f9ff;
+  --border: rgba(16,20,24,.12);
+  --chip: #eef2f7;
+  --button-orange-1: rgba(245,201,116,.35);
+  --button-orange-5: #FFD08A;
+  --button-orange-6: #FFC158;
+  --app-bg-img: url("/video/bg-white.png");
+  --app-bg-color: #ffffff;
+}
+
+:root[data-theme=dark] {
+  --text: #e6e9ef;
+  --text-muted: rgba(230,233,239,.72);
+  --panel: #0f141b;
+  --panel-weak: #121922;
+  --border: rgba(230,233,239,.12);
+  --chip: #1a2130;
+  --app-bg-img: url("/video/bg-black.png");
+  --app-bg-color: #0b0f14;
+}
+
+/* Фон страницы по теме */
+body {
+  background-image: var(--app-bg-img);
+  background-color: var(--app-bg-color);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+  color: var(--text);
 }
 
 .b.b-orange.b-focus {
@@ -43,16 +74,19 @@ body {
   cursor: pointer;
 }
 
-/* приложение поверх видео */
-#root {
-  position: relative;
-  z-index: 1;
+.card-like {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
 }
 
-/* видео-режим: всё — прозрачное */
-html.with-video,
-html.with-video body,
-html.with-video #root {
-  background: transparent !important;
-  background-color: transparent !important;
+.MuiPaginationItem-root {
+  color: var(--text) !important;
+}
+
+.theme-drawer-paper {
+  background: color-mix(in oklab, var(--panel) 92%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+          backdrop-filter: blur(12px);
+  border-left: 1px solid var(--border);
 }/*# sourceMappingURL=globals.css.map */

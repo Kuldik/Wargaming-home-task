@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
 import '../shared/styles/tokens.scss';
 import '../shared/styles/globals.scss';
 
@@ -8,12 +9,12 @@ import { ThemeProviderApp } from './providers/ThemeProvider';
 import { I18nProvider } from './providers/I18nProvider';
 import { RouterProviderApp } from './providers/RouterProvider';
 import { SnackbarProviderApp } from './providers/SnackbarProvider';
-import { VideoBackground } from './VideoBackground';
+import { Splash } from './ui/Splash'; // <-- заставка
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    {/* фоновое видео можно выключить в хедере */}
-    <VideoBackground />
+    
+    <Splash />
 
     <StoreProvider>
       <I18nProvider>

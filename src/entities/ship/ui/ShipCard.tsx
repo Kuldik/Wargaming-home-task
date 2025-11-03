@@ -12,16 +12,16 @@ export const ShipCard: React.FC<{ ship: Vehicle; media: string }> = ({ ship, med
   return (
     <Link to={`/ship/${encodeURIComponent(ship.name)}`} style={{ color: 'inherit', textDecoration: 'none' }}>
       <Box
+        className="card-like"
         sx={{
           display: 'grid',
           gridTemplateRows: '160px auto auto',
           gap: 1.5,
           padding: 2,
-          border: '1px solid var(--border)',
-          borderRadius: '12px',
           background: 'var(--panel)',
+          color: 'var(--text)',
           overflow: 'hidden',
-          position: 'relative'
+          position: 'relative',
         }}
       >
         <img
@@ -31,21 +31,26 @@ export const ShipCard: React.FC<{ ship: Vehicle; media: string }> = ({ ship, med
           decoding="async"
           style={{ width: '100%', height: 160, objectFit: 'contain', pointerEvents: 'none' }}
         />
+
+        {/* Имя по центру */}
         <div style={{ textAlign: 'center', fontWeight: 700, fontSize: 18 }}>{title}</div>
 
-        <div style={{
-          display: 'flex',
-          gap: 8,
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          fontSize: 14,
-          opacity: .85
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            gap: 8,
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            fontSize: 14,
+            opacity: 0.85,
+          }}
+        >
           <span>{ship.nation}</span>
           <span>lvl {toRoman(ship.level)}</span>
         </div>
 
-        <button className="b b-orange b-focus" style={{ justifySelf: 'end' }}>Подробнее</button>
+        {/* Кнопка по центру */}
+        <button className="b b-orange b-focus" style={{ justifySelf: 'center' }}>Подробнее</button>
       </Box>
     </Link>
   );

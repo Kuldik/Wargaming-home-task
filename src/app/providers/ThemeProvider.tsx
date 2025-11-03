@@ -1,73 +1,42 @@
-import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
-import { useEffect, useMemo, useState } from 'react';
-import { on } from '../../shared/lib/bus';
+import { PropsWithChildren, useEffect, useMemo, useState } from 'react';
+import { CssBaseline, createTheme, ThemeProvider } from '@mui/material';
 
-const mkTheme = (mode: 'dark' | 'light', videoOn: boolean) => createTheme({
-  palette: {
-    mode,
-    background: {
-      // если видео включено — фон темы прозрачный
-      default: videoOn ? 'transparent' : (mode === 'dark' ? '#0d0f12' : '#f6f7f9')
-    },
-    text: {
-      primary: mode === 'dark' ? '#e6e9ef' : '#0b0d11',
-      secondary: mode === 'dark' ? '#a1a8b3' : '#4b5563'
-    },
-    divider: mode === 'dark' ? '#232731' : '#e5e7eb'
-  },
-  shape: { borderRadius: 10 },
-  typography: { fontFamily: 'Roboto, system-ui, -apple-system, Segoe UI, Arial, sans-serif' }
-});
+const THEME_KEY = 'theme';
 
-export const ThemeProviderApp: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [mode, setMode] = useState<'dark' | 'light'>(
-    (localStorage.getItem('theme') as 'dark' | 'light') || 'dark'
-  );
-  const [videoOn, setVideoOn] = useState(localStorage.getItem('video-bg') !== 'off');
+function readInitialMode(): 'light' | 'dark' {
+  const saved = localStorage.getItem(THEME_KEY);
+  if (saved === 'light' || saved === 'dark') return saved as 'light' | 'dark';
+  if (typeof window !== 'undefined' && window.matchMedia) {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  return 'light';
+}
 
-  // синк темы
+export const ThemeProviderApp = ({ children }: PropsWithChildren) => {
+  const [mode, setMode] = useState<'light' | 'dark'>(() => readInitialMode());
+
   useEffect(() => {
-    localStorage.setItem('theme', mode);
     document.documentElement.setAttribute('data-theme', mode);
+    localStorage.setItem(THEME_KEY, mode);
   }, [mode]);
 
-  // слушаем смену темы
   useEffect(() => {
-    const h = (e: Event) => {
-      const next = (e as CustomEvent).detail as 'dark' | 'light' | undefined;
-      if (next && next !== mode) setMode(next);
+    const handler = (e: Event) => {
+      const next = (e as CustomEvent).detail;
+      if (next === 'light' || next === 'dark') setMode(next);
     };
-    const storage = (e: StorageEvent) => {
-      if (e.key === 'theme' && (e.newValue === 'dark' || e.newValue === 'light')) {
-        setMode(e.newValue);
-      }
-    };
-    window.addEventListener('theme:changed', h as EventListener);
-    window.addEventListener('storage', storage);
-    return () => {
-      window.removeEventListener('theme:changed', h as EventListener);
-      window.removeEventListener('storage', storage);
-    };
-  }, [mode]);
-
-  // слушаем видео-режим
-  useEffect(() => {
-    const hv = (e: Event) => {
-      const val = (e as CustomEvent).detail as 'on' | 'off' | undefined;
-      setVideoOn((val ?? (localStorage.getItem('video-bg') === 'off' ? 'off' : 'on')) !== 'off');
-    };
-    const storage = (e: StorageEvent) => {
-      if (e.key === 'video-bg') setVideoOn(e.newValue !== 'off');
-    };
-    window.addEventListener('video:changed', hv as EventListener);
-    window.addEventListener('storage', storage);
-    return () => {
-      window.removeEventListener('video:changed', hv as EventListener);
-      window.removeEventListener('storage', storage);
-    };
+    window.addEventListener('theme:set', handler as EventListener);
+    return () => window.removeEventListener('theme:set', handler as EventListener);
   }, []);
 
-  const theme = useMemo(() => mkTheme(mode, videoOn), [mode, videoOn]);
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: { mode },
+        shape: { borderRadius: 12 },
+      }),
+    [mode]
+  );
 
   return (
     <ThemeProvider theme={theme}>

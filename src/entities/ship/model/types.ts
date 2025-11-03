@@ -1,22 +1,26 @@
-export type Lang = string;
+export type VehicleImageSet = {
+  small?: string;
+  medium?: string;
+  large?: string;
+  contour?: string;
+  default?: string;
+};
 
-export interface VehicleLocalization {
-  mark: Record<Lang, string>;
-  shortmark?: Record<Lang, string>;
-  description?: Record<Lang, string>;
-}
-export interface VehicleIconSet {
-  default: string;
-  medium?: string; small?: string; large?: string;
-  contour?: string; contour_alive?: string; contour_dead?: string;
-  local_contour?: string; local_contour_alive?: string; local_contour_dead?: string;
-}
-export interface Vehicle {
-  level: number;
-  name: string; 
-  icons: VehicleIconSet;
-  tags: string[];
-  localization: VehicleLocalization;
-  nation: string;
-}
+export type VehicleLocalization = {
+  mark?: Record<string, string>;       // локализованное имя
+  shortmark?: Record<string, string>;  // краткое имя
+  description?: Record<string, string>;
+};
+
+export type Vehicle = {
+  name: string; // имя судна (ключ)
+  level: number; // 1..11
+  nation: string; // код нации
+  tags: string[]; // типы судов
+  icons?: VehicleImageSet;
+  images?: VehicleImageSet;
+  localization?: VehicleLocalization;
+  [k: string]: any;
+};
+
 export type VehiclesResponse = Record<string, Vehicle>;
