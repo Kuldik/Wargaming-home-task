@@ -1,8 +1,11 @@
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 
+const repo = 'Wargaming-home-task'
+
 export default defineConfig({
   plugins: [react()],
+  base: `/${repo}/`,
   test: {
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
