@@ -20,7 +20,7 @@ export type Vehicle = {
   icons?: VehicleImageSet;
   images?: VehicleImageSet;
   localization?: VehicleLocalization;
-  [k: string]: any;
+  [k: string]: unknown;
 };
 
 export type VehiclesResponse = Record<string, Vehicle>;
