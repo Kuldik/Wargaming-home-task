@@ -1,23 +1,43 @@
 import { useEffect, useState } from 'react';
+import logoUrl from '../../assets/logo.png'; 
 
-export const Splash = () => {
-  const [visible, setVisible] = useState(true);
+const HIDE_DELAY = 2000;
+const ANIM_MS = 450;
+
+export function Splash() {
+  const [hidden, setHidden] = useState(false);
+  const [mounted, setMounted] = useState(true);
 
   useEffect(() => {
-    const seen = sessionStorage.getItem('splash_seen');
-    if (seen) { setVisible(false); return; }
-    const t = setTimeout(() => {
-      setVisible(false);
-      sessionStorage.setItem('splash_seen', '1');
-    }, 2000); // 2 секунды
-    return () => clearTimeout(t);
+    // если уже показывали сплэш в этой сессии — сразу размонтируем
+    if (sessionStorage.getItem('splash_seen') === '1') {
+      setMounted(false);
+      return;
+    }
+
+    // помечаем, что показали в этой сессии
+    sessionStorage.setItem('splash_seen', '1');
+
+    const t1 = setTimeout(() => setHidden(true), HIDE_DELAY);
+    const t2 = setTimeout(() => setMounted(false), HIDE_DELAY + ANIM_MS);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
   }, []);
 
-  if (!visible) return null;
+  if (!mounted) return null;
 
   return (
-    <div className="splash">
-      <img src="/images/logo.png" alt="WoW Ships" />
+    <div
+      role="dialog"
+      aria-label="Splash screen"
+      className={`splash ${hidden ? 'splash--hide' : ''}`}
+    >
+      <div className="splash__inner">
+        <img src={logoUrl} alt="WoWS Ships" className="splash__logo" />
+        <div className="splash__hint">Tap to skip</div>
+      </div>
     </div>
   );
-};
+}

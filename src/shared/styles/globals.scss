@@ -85,3 +85,97 @@ body {
   backdrop-filter: blur(12px);
   border-left: 1px solid var(--border);
 }
+
+
+/* Splash */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  /* Тёмная/светлая тема через CSS-переменные */
+  background:
+    radial-gradient(120% 120% at 50% 100%, rgba(255, 165, 0, 0.10) 0%, rgba(255, 165, 0, 0) 60%),
+    var(--app-bg, #0b0f14);
+
+  display: grid;
+  place-items: center;
+
+  /* лёгкое размытие позади, если есть контент под сплэшем */
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+
+  animation: splash-fade-in 220ms ease-out both;
+
+  &__inner {
+    display: grid;
+    place-items: center;
+    gap: 14px;
+    transform: translateY(8px);
+    animation: splash-pop-in 320ms cubic-bezier(.2, .7, .2, 1) both;
+  }
+
+  &__logo {
+    width: clamp(120px, 26vw, 220px);
+    height: auto;
+    filter: drop-shadow(0 6px 18px rgba(0,0,0,.35));
+    user-select: none;
+    pointer-events: none;
+  }
+
+  &__hint {
+    font-size: 12px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    opacity: .55;
+    color: var(--text, #eaeef6);
+  }
+}
+
+/* Плавное скрытие */
+.splash--hide {
+  animation: splash-fade-out 420ms ease-in forwards;
+
+  .splash__inner {
+    animation: splash-pop-out 320ms ease-in forwards;
+  }
+}
+
+/* Анимации */
+@keyframes splash-fade-in {
+  from { opacity: 0 }
+  to   { opacity: 1 }
+}
+
+@keyframes splash-fade-out {
+  from { opacity: 1 }
+  to   { opacity: 0 }
+}
+
+@keyframes splash-pop-in {
+  from { transform: translateY(14px) scale(.985); opacity: 0 }
+  to   { transform: translateY(0)    scale(1);     opacity: 1 }
+}
+
+@keyframes splash-pop-out {
+  from { transform: translateY(0)    scale(1);     opacity: 1 }
+  to   { transform: translateY(-6px) scale(.985);  opacity: 0 }
+}
+
+/* Тёмная/светлая тема через data-theme */
+:root[data-theme='dark'] {
+  --app-bg: #0b0f14;
+  --text: #eaeef6;
+}
+
+:root[data-theme='light'] {
+  --app-bg: #ffffff;
+  --text: #0b0f14;
+}
+
+/* Доступность — без анимаций для тех, кто не любит motion */
+@media (prefers-reduced-motion: reduce) {
+  .splash, .splash--hide, .splash__inner {
+    animation: none !important;
+  }
+}

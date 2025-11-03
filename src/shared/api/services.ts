@@ -37,3 +37,8 @@ export const {
   useGetVehicleTypesQuery,
   useGetMediaPathQuery,
 } = services;
+
+export const apiGetMediaPath    = services.endpoints.getMediaPath;
+export const apiGetNations      = services.endpoints.getNations;
+export const apiGetVehicleTypes = services.endpoints.getVehicleTypes;
+export const apiGetVehicles     = services.endpoints.getVehicles;
