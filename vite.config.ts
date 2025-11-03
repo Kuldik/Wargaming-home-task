@@ -3,9 +3,9 @@ import react from '@vitejs/plugin-react';
 
 const repo = 'Wargaming-home-task'
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
-  base: `/${repo}/`,
+  base: mode === 'production' ? '/Wargaming-home-task/' : '/',
   test: {
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
@@ -16,4 +16,4 @@ export default defineConfig({
       toFake: ['setTimeout', 'clearTimeout', 'Date'],
     },
   },
-});
+}));
