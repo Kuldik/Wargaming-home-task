@@ -1,6 +1,6 @@
 # WoW Ships (React + TypeScript + Vite)
 
-<!-- 🕰️ **Демо (GitHub Pages):** https://Kuldik.github.io//   -->
+🕰️ **Демо (GitHub Pages):** https://Kuldik.github.io/Wargaming-home-task/  
 
 ---
 
