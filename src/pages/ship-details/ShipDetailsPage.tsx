@@ -1,10 +1,11 @@
 // src/pages/ship-details/ui/ShipDetailsPage.tsx
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { Box, Button, useTheme } from '@mui/material';
-import { Header } from '../../../widgets/header/ui/Header';
-import { SkeletonBox } from '../../../shared/ui/Skeletons';
-import i18n from '../../../shared/lib/i18n';
-import { useGetMediaPathQuery, useGetVehiclesQuery } from '../../../shared/api/services';
+import { Header } from '../../widgets/header/Header';
+import { SkeletonBox } from '../../shared/ui/Skeletons';
+import i18n from '../../shared/lib/i18n';
+import { useGetMediaPathQuery, useGetVehiclesQuery } from '../../shared/api/services';
+import s from './ShipDetailsPage.module.scss';
 
 // --------- Types ----------
 type LangCode =
@@ -14,7 +15,6 @@ type LangCode =
 
 type LocalizedDict = Record<string, string>;
 
-/** Часть структуры по кораблю, которая реально используется на странице */
 interface Vehicle {
   name: string;
   localization?: {
@@ -60,21 +60,12 @@ const pickImagePath = (v: Vehicle): string | undefined =>
   v.images?.medium ??
   v.images?.default;
 
-const backButtonSx = (mode: 'light' | 'dark') => ({
-  alignSelf: 'start',
-  color: 'var(--text)',
-  borderColor: 'var(--border)',
-  '&:hover': { borderColor: 'var(--border)' },
-  borderRadius: 2,
-  px: 1.25,
-  py: 0.75,
-});
 
 // --------- Component ----------
 export const ShipDetailsPage = () => {
   const { techName } = useParams<{ techName: string }>();
   const lang = getLang();
-  const theme = useTheme();
+  useTheme(); 
 
   const { data: mp, isLoading: isMpLoading } = useGetMediaPathQuery({ lang });
   const { data: vehicles, isLoading: isListLoading } = useGetVehiclesQuery({ lang });
@@ -85,70 +76,60 @@ export const ShipDetailsPage = () => {
     return (
       <>
         <Header />
-        <Box sx={{ p: 3, display: 'grid', gap: 2 }}>
+        <Box className={s.pageContent}>
+          <SkeletonBox h={24} w="100%" />
           <SkeletonBox h={28} w={110} br={8} />
-          <SkeletonBox h="70vh" br={16} />
+          <SkeletonBox h="64vh" br={16} />
+
+          <Box className={s.textSk}>
+            <SkeletonBox h={12} w="60%" />
+            <SkeletonBox h={12} w="90%" />
+            <SkeletonBox h={12} w="85%" />
+            <SkeletonBox h={12} w="80%" />
+            <SkeletonBox h={12} w="60%" />
+          </Box>
         </Box>
       </>
     );
   }
 
   const media = (mp as MediaPathResponse | undefined)?.data ?? '';
-
   const decoded = decodeURIComponent(techName ?? '');
   const list = (vehicles as VehiclesResponse | undefined)?.data ?? {};
-
-  const ship: Vehicle | undefined = Object.values(list).find(
-    (v) => v?.name === decoded
-  );
+  const ship: Vehicle | undefined = Object.values(list).find((v) => v?.name === decoded);
 
   if (!ship) {
     return (
       <>
         <Header />
-        <Box sx={{ p: 3 }}>
+        <Box className={s.page}>
           <SkeletonBox h="70vh" br={16} />
         </Box>
       </>
     );
   }
 
-  const title =
-    pickLocalized(ship.localization?.mark, lang) ??
-    ship.name;
-
+  const title = pickLocalized(ship.localization?.mark, lang) ?? ship.name;
   const imgPath = pickImagePath(ship);
 
   return (
     <>
       <Header />
-      <Box sx={{ p: 3, display: 'grid', gap: 2, color: 'var(--text)' }}>
-        <Button
-          component={RouterLink}
-          to="/"
-          sx={backButtonSx(theme.palette.mode)}
-          startIcon={<span style={{ fontSize: 18, lineHeight: 1 }}>←</span>}
-        >
+      <Box className={s.pageContent}>
+        <Button component={RouterLink} to="/" className={s.backBtn}
+          startIcon={<span style={{ fontSize: 18, lineHeight: 1 }} className={s.backArrow}>←</span>}>
           {BACK_LABELS[lang] ?? BACK_LABELS.en}
         </Button>
 
-        <h1 style={{ margin: 0, color: 'var(--text)' }}>{title}</h1>
+        <h1 className={s.title}>{title}</h1>
 
         {imgPath ? (
-          <img
-            src={`${media}${imgPath}`}
-            alt={title}
-            loading="lazy"
-            decoding="async"
-            style={{ maxWidth: '100%', height: 'auto', borderRadius: 12 }}
-          />
+          <img src={`${media}${imgPath}`} alt={title} loading="lazy" decoding="async" className={s.shipImg} />
         ) : (
           <SkeletonBox h="70vh" br={16} />
         )}
 
-        <p style={{ opacity: 0.85, color: 'var(--text)' }}>
-          {pickLocalized(ship.localization?.description, lang) ?? ''}
-        </p>
+        <p className={s.desc}>{pickLocalized(ship.localization?.description, lang) ?? ''}</p>
       </Box>
     </>
   );

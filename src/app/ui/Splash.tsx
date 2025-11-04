@@ -35,7 +35,7 @@ export function Splash() {
       className={`splash ${hidden ? 'splash--hide' : ''}`}
     >
       <div className="splash__inner">
-        <img src={logoUrl} alt="WoWS Ships" className="splash__logo" />
+        <img src={logoUrl} alt="WoW Ships" className="splash__logo" />
         <div className="splash__hint">Tap to skip</div>
       </div>
     </div>

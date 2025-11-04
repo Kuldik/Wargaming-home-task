@@ -56,22 +56,29 @@ export const FiltersPanel = (p: FiltersPanelProps) => {
     color: 'var(--text)',
     '& .MuiOutlinedInput-root': {
       backgroundColor: 'var(--panel)',
-      height: `${CONTROL_H}px`,
+      height: `${CONTROL_H}px`,          // фиксированная высота инпута
       borderRadius: '12px',
       '& .MuiOutlinedInput-notchedOutline': { borderColor: 'var(--border)' },
       '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'var(--border)' },
       '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'var(--border)' },
-      // Контент Select
+
+      // контейнер видимой области (тут делаем скролл)
       '& .MuiSelect-select': {
         display: 'flex',
-        alignItems: 'center',
+        flexWrap: 'wrap',
+        alignContent: 'flex-start',
         gap: '6px',
-        paddingTop: 0,
-        paddingBottom: 0,
+        paddingTop: '8px',
+        paddingBottom: '8px',
         paddingLeft: '12px',
         paddingRight: '36px',
-        minHeight: `${CONTROL_H}px`,
-        lineHeight: `${CONTROL_H}px`,
+        height: `${CONTROL_H}px`,
+        lineHeight: 'normal',
+        overflowY: 'auto',
+        whiteSpace: 'normal',
+        // опционально: тонкий скролл
+        '&::-webkit-scrollbar': { width: 6, height: 6 },
+        '&::-webkit-scrollbar-thumb': { background: 'var(--border)', borderRadius: 8 },
       },
     },
     '& .MuiFormLabel-root': { color: 'var(--text)' },
@@ -125,12 +132,22 @@ export const FiltersPanel = (p: FiltersPanelProps) => {
         <Select
           multiple
           size="small"
-          label={p.labels.nations}                          
+          label={p.labels.nations}
           value={p.selectedNations}
-          input={<OutlinedInput label={p.labels.nations} />} 
+          input={<OutlinedInput label={p.labels.nations} />}
           onChange={(e) => p.onNations(e.target.value as string[])}
           renderValue={(selected) => (
-            <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                gap: 0.5,
+                flexWrap: 'wrap',
+                alignContent: 'flex-start',
+                maxHeight: `calc(${CONTROL_H}px)`, 
+                overflowY: 'auto',
+                pr: 1, 
+              }}
+            >
               {(selected as string[]).map((code) => chip(nationMap.get(code) ?? code))}
             </Box>
           )}

@@ -1,6 +1,6 @@
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { ShipsListPage } from '../../pages/ships-list/ui/ShipsListPage';
-import { ShipDetailsPage } from '../../pages/ship-details/ui/ShipDetailsPage';
+import { ShipsListPage } from '../../pages/ships-list/ShipsListPage';
+import { ShipDetailsPage } from '../../pages/ship-details/ShipDetailsPage';
 
 export const RouterProviderApp = () => (
   <HashRouter>

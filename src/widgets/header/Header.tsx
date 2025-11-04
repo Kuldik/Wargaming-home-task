@@ -5,8 +5,8 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { Link as RouterLink } from 'react-router-dom';
-import { LanguageSwitcher } from '../../../features/language-switcher/ui/LanguageSwitcher';
-import { emit, on } from '../../../shared/lib/bus';
+import { LanguageSwitcher } from '../../features/language-switcher/LanguageSwitcher';
+import { emit, on } from '../../shared/lib/bus';
 import { useEffect, useState, type ReactNode } from 'react';
 
 type HeaderProps = { mobileContent?: ReactNode };
@@ -51,6 +51,7 @@ const ThemeToggle = () => {
 export const Header = ({ mobileContent }: HeaderProps) => {
   const [open, setOpen] = useState(false);
 
+  const close = () => setOpen(false);
   return (
     <AppBar
       position="sticky"
@@ -95,14 +96,16 @@ export const Header = ({ mobileContent }: HeaderProps) => {
       <Drawer
         anchor="right"
         open={open}
-        onClose={() => setOpen(false)}
-        PaperProps={{
-          sx: {
-            width: 310,
-            backgroundColor: 'var(--panel)',
-            color: 'var(--text)',
-            borderLeft: '1px solid var(--border)',
-            backdropFilter: 'blur(10px)',
+        onClose={close}
+        slotProps={{
+          paper: {
+            sx: {
+              width: 310,
+              backgroundColor: 'var(--panel)',
+              color: 'var(--text)',
+              borderLeft: '1px solid var(--border)',
+              backdropFilter: 'blur(10px)',
+            },
           },
         }}
       >
@@ -114,7 +117,7 @@ export const Header = ({ mobileContent }: HeaderProps) => {
                 WoW Ships
               </Typography>
             </Box>
-            <IconButton aria-label="close" onClick={() => setOpen(false)} sx={{ color: 'var(--text)' }}>
+            <IconButton aria-label="close" onClick={close} sx={{ color: 'var(--text)' }}>
               <CloseIcon />
             </IconButton>
           </Box>

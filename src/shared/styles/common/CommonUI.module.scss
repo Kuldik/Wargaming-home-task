@@ -1,0 +1,111 @@
+/* ---------- Глобальные токены и keyframes ---------- */
+:global(:root) {
+    /* Светлая тема */
+    --background: #f6f7fb;
+    --panel:      #ffffff;
+    --text:       #0f1115;
+    --border:     #e3e6ef;
+
+    /* Скелетон-градиент */
+    --sk-a: #e6ebf3;
+    --sk-b: #f7f9ff;
+    --sk-c: #e6ebf3;
+}
+
+:global([data-theme='dark']),
+:global(.theme-dark) {
+    --background: #0f1115;
+    --panel:      #171a21;
+    --text:       #f1f3f7;
+    --border:     #2a2f3a;
+
+    --sk-a: #1b2029;
+    --sk-b: #2a3342;
+    --sk-c: #1b2029;
+}
+
+/* Единая анимация шима — глобально */
+:global {
+    @keyframes sk-shimmer {
+        0%   { background-position: -250% 0; }
+        50%  { background-position:   0% 0; }
+        100% { background-position: 250% 0; }
+    }
+}
+
+/* ---------- LanguageSwitcher ---------- */
+.langSelectRoot {
+    min-width: 78px;
+    height: 36px;
+    border-radius: 16px;
+    color: var(--text);
+
+    .MuiOutlinedInput-notchedOutline { border-color: var(--border); }
+
+    .MuiSelect-select {
+        background-color: var(--panel);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+
+        padding-top: 6px;
+        padding-bottom: 5px;
+        padding-left: 12px;
+        padding-right: 36px;
+    }
+
+    .MuiSvgIcon-root { color: var(--text); }
+}
+
+.langMenuPaper {
+    background-color: var(--panel);
+    color: var(--text);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+}
+
+/* ---------- Skeletons ---------- */
+.skBox {
+    background: linear-gradient(
+        90deg, var(--sk-a) 0%, 
+        var(--sk-b) 50%, 
+        var(--sk-c) 100%
+    );
+    background-size: 300% 100%;
+    animation: sk-shimmer 1.05s ease-in-out infinite;
+}
+
+.cardSkeleton {
+    padding: 24px;            /* p:3 */
+    border-radius: 8px;
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+/* ---------- Helpers (отступы/раскладки) ---------- */
+.mt2 { 
+    margin-top: 16px; 
+}
+
+.mt125 { 
+    margin-top: 10px; 
+}
+
+.center{ 
+    display: flex; 
+    justify-content: center; 
+}
+.rowBetween { 
+    display: flex; 
+    justify-content: space-between;
+    gap: 16px; 
+}
+
+/* ---------- Details skeleton ---------- */
+.detailsSkeleton {
+    padding: 16px;           
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

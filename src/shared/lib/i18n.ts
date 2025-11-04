@@ -1,7 +1,25 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-const resources = {
+type UILocale = {
+  ui: {
+    more: string; 
+    search: string; 
+    filters: string; 
+    reset: string; 
+    nothing: string; 
+    loading: string; 
+    back: string;
+    levels: string; 
+    nations: string; 
+    types: string;
+  };
+  nations_short: Record<string, string>;
+};
+
+type ResourceBundle = Record<string, UILocale>; // ключ — 'ru' | 'en' | ...
+
+const resources: ResourceBundle = {
   ru: {
     ui: {
       more: 'Подробнее',

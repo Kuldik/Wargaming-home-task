@@ -1,0 +1,58 @@
+.page {
+  padding: 12px; /* будет использовано в скелетоне */
+}
+
+.pageContent {
+  padding: 12px;
+  display: grid;
+  gap: 16px;
+  color: var(--text);
+}
+
+@media (min-width: 0px) {
+  .pageContent {
+    padding: 12px;
+  }
+}
+
+.textSk {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.backBtn {
+  align-self: start;
+  color: var(--text);
+  border-color: var(--border);
+  border-radius: 16px; 
+  padding-left: 10px;  
+  padding-right: 10px;
+  padding-top: 6px;   
+  padding-bottom: 6px;
+}
+
+.backBtn:hover {
+  border-color: var(--border);
+}
+
+.backArrow {
+    align-self: baseline;
+}
+
+.title {
+  margin: 0;
+  color: var(--text);
+}
+
+.shipImg {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.desc {
+  opacity: 0.85;
+  color: var(--text);
+}

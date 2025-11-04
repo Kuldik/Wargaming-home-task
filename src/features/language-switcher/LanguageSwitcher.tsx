@@ -1,6 +1,7 @@
 import { MenuItem, Select } from '@mui/material';
 import { useEffect, useState } from 'react';
-import i18n from '../../../shared/lib/i18n';
+import i18n from '../../shared/lib/i18n';
+import s from '../../shared/styles/common/CommonUI.module.scss';
 
 type LangOpt = { code: string; label: string };
 
@@ -35,33 +36,9 @@ export const LanguageSwitcher = () => {
       size="small"
       value={value}
       onChange={(e) => handleChange(String(e.target.value))}
-      sx={{
-        minWidth: 78,
-        height: 36,
-        borderRadius: 2,
-        color: 'var(--text)',
-        '& .MuiOutlinedInput-notchedOutline': { borderColor: 'var(--border)' },
-        '& .MuiSelect-select': {
-          backgroundColor: 'var(--panel)',
-          borderRadius: 8,
-          display: 'flex',
-          alignItems: 'center',
-          paddingTop: '6px',
-          paddingBottom: '5px',
-          paddingLeft: '12px',
-          paddingRight: '36px',
-        },
-        '& .MuiSvgIcon-root': { color: 'var(--text)' },
-      }}
+      className={s.langSelectRoot}
       MenuProps={{
-        PaperProps: {
-          sx: {
-            backgroundColor: 'var(--panel)',
-            color: 'var(--text)',
-            border: '1px solid var(--border)',
-            backdropFilter: 'blur(8px)',
-          },
-        },
+        PaperProps: { className: s.langMenuPaper },
       }}
     >
       {OPTIONS.map((o) => (

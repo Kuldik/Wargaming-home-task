@@ -91,6 +91,31 @@ body {
   border-left: 1px solid var(--border);
 }
 
+@keyframes sk-shimmer {
+  0% {
+    background-position: -250% 0;
+  }
+  50% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 250% 0;
+  }
+}
+/* Светлая тема по умолчанию */
+:root {
+  --sk-a: #e6ebf3;
+  --sk-b: #f7f9ff;
+  --sk-c: #e6ebf3;
+}
+
+/* Тёмная тема (повесь атрибут на <html> или класс на body) */
+[data-theme=dark], .theme-dark {
+  --sk-a: #1b2029;
+  --sk-b: #2a3342;
+  --sk-c: #1b2029;
+}
+
 /* Splash */
 .splash {
   position: fixed;

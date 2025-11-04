@@ -1,0 +1,35 @@
+.grid {
+  display: grid;
+  gap: 30px;
+  padding: 30px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1268px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 80px;
+    padding: 80px;
+  }
+}
+
+.desktopFilters {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .desktopFilters {
+    display: block;
+  }
+}
+
+.emptyWrap {
+  padding: 32px;
+  text-align: center;
+}
