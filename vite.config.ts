@@ -1,11 +1,11 @@
-import { defineConfig, loadEnv } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig, loadEnv } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '') 
+  const env = loadEnv(mode, process.cwd(), '');
   return {
     plugins: [react()],
-    base: env.VITE_PUBLIC_BASE || '/',   
+    base: env.VITE_BASE_PATH || '/', 
     test: {
       environment: 'jsdom',
       setupFiles: ['./vitest.setup.ts'],
@@ -14,5 +14,5 @@ export default defineConfig(({ mode }) => {
       clearMocks: true,
       fakeTimers: { toFake: ['setTimeout', 'clearTimeout', 'Date'] },
     },
-  }
-})
+  };
+});

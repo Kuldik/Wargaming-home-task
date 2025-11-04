@@ -8,6 +8,7 @@
     "dev": "vite",
     "preview": "vite preview --port 5173",
     "clean": "rimraf dist",
+    "build": "vite build",
     "build:gh": "npm run clean && vite build --mode gh",
     "build:vercel": "npm run clean && vite build --mode vercel",
     "deploy:gh": "npm run build:gh && gh-pages -d dist",
