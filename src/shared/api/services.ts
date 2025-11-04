@@ -2,6 +2,8 @@ import { api } from './rtk';
 import type { VehiclesResponse } from '../../entities/ship/model/types';
 import type { Nation } from '../../entities/nation/model/types';
 
+const apiLang = (_uiLang: string) => 'en';
+
 type VehicleTypesResponse = Record<
   string,
   { name: string; localization: { mark: Record<string, string> } }
@@ -10,22 +12,22 @@ type VehicleTypesResponse = Record<
 export const services = api.injectEndpoints({
   endpoints: (build) => ({
     getMediaPath: build.query<{ status: string; data: string }, { lang: string }>({
-      query: ({ lang }) => `/${lang}/media_path/`,
+      query: ({ lang }) => `/${apiLang(lang)}/media_path/`,
       providesTags: ['MediaPath'],
     }),
 
     getVehicles: build.query<{ status: string; data: VehiclesResponse }, { lang: string }>({
-      query: ({ lang }) => `/${lang}/vehicles/`,
+      query: ({ lang }) => `/${apiLang(lang)}/vehicles/`,
       providesTags: (_r, _e, a) => [{ type: 'Vehicles', id: a.lang }],
     }),
 
     getNations: build.query<{ status: string; data: Nation[] }, { lang: string }>({
-      query: ({ lang }) => `/${lang}/nations/`,
+      query: ({ lang }) => `/${apiLang(lang)}/nations/`,
       providesTags: (_r, _e, a) => [{ type: 'Nations', id: a.lang }],
     }),
 
     getVehicleTypes: build.query<{ status: string; data: VehicleTypesResponse }, { lang: string }>({
-      query: ({ lang }) => `/${lang}/vehicle_types_common/`,
+      query: ({ lang }) => `/${apiLang(lang)}/vehicle_types_common/`,
       providesTags: (_r, _e, a) => [{ type: 'Types', id: a.lang }],
     }),
   }),
