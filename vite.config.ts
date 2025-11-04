@@ -5,7 +5,7 @@ const repo = 'Wargaming-home-task'
 
 export default defineConfig(({ mode }) => ({
   plugins: [react()],
-  base: mode === 'production' ? '/Wargaming-home-task/' : '/',
+  base: "/",
   test: {
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
