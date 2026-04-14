@@ -1,150 +1,95 @@
-# WoW Ships (React + TypeScript + Vite)
+# WoW Ships
 
----
+**Живое приложение → [wargaming-home-task-tau.vercel.app](https://wargaming-home-task-tau.vercel.app/)**
 
-## 📌 Описание
+Одностраничное приложение для просмотра кораблей World of Warships: фильтры, карточки, детальная страница, локализация и тёмная тема.
 
-Одностраничное приложение для просмотра кораблей World of Warships с фильтрами и локализацией.  
-Фичи:
+[![Deploy](https://img.shields.io/badge/Deploy-Vercel-000000?style=flat&logo=vercel)](https://wargaming-home-task-tau.vercel.app/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat&logo=react&logoColor=000)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat&logo=typescript&logoColor=fff)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=flat&logo=vite&logoColor=fff)](https://vitejs.dev/)
 
-- Список кораблей с пагинацией, карточками и деталями
-- Фильтры: **уровни**, **нации**, **типы**, **поиск**
-- Локализация интерфейса (**i18next**) для 20+ языков
-- Темы (**светлая/тёмная**) с сохранением в `localStorage`
-- Мобильное меню-бургер: фильтры доступны внутри Drawer
-- RTK Query для работы с API (медиа-путь, нации, типы, корабли)
-- Splash-заставка при первом визите в сессию
+## Возможности
 
----
+- список кораблей с карточками и переходом в детали;
+- фильтры: **уровень**, **нация**, **тип**, **поиск**;
+- **i18next** — интерфейс на множестве языков;
+- **светлая / тёмная тема** с сохранением в `localStorage`;
+- адаптивная вёрстка и выезжающая панель фильтров на мобильных;
+- **RTK Query** для данных API (нации, типы, корабли, медиа);
+- splash-экран при первом заходе в сессию.
 
-## 🚀 Возможности
+## Стек
 
-- **React 18 + TypeScript 5**
-- **Vite** (быстрая dev-сборка и preview)
-- **MUI** (AppBar/Drawer/Inputs/Slider)
-- **Redux Toolkit Query** для API
-- **i18next** + json-словари
-- **Единые CSS-переменные** (`--panel`, `--text`, `--border` и т.д.)
-- Адаптивная сетка 1/2/3 колонки для карточек
+| Категория        | Технологии                                      |
+| ---------------- | ----------------------------------------------- |
+| UI               | React 19, TypeScript, MUI, Emotion, SCSS        |
+| Состояние и API  | Redux Toolkit, RTK Query                        |
+| Сборка           | Vite 6                                          |
+| Тесты            | Vitest, React Testing Library, MSW              |
+| Маршрутизация    | React Router (HashRouter)                       |
 
----
+## Структура проекта
 
-## 🧩 Стек
-
-- **React 18**, **TypeScript 5**
-- **Vite**
-- **SASS/SCSS**
-- **MUI**
-- **Redux Toolkit Query**
-- **i18next**
-- **Vitest** + **React Testing Library**
-
----
-
-## 🗂 Структура
----
 ```
 public/
-├─ fonts/Roboto/...
-├─ images/
-│ ├─ logo-small.png # фавикон/иконки вкладки
-│ └─ logo.png # логотип для сплеша
-└─ video/
-├─ bg-black.png
-└─ bg-white.png
+├── fonts/Roboto/…
+├── images/          # логотипы, фавикон
+└── video/           # фон splash
 
 src/
-├─ app/
-│ ├─ providers/
-│ │ ├─ I18nProvider.tsx
-│ │ ├─ RouterProvider.tsx
-│ │ ├─ SnackbarProvider.tsx
-│ │ ├─ StoreProvider.tsx
-│ │ └─ ThemeProvider.tsx
-│ ├─ ui/
-│ │ └─ Splash.tsx
-│ └─ index.tsx # входная точка
-├─ entities/
-│ ├─ nation/model/types.ts
-│ ├─ ship/
-│ │ ├─ model/types.ts
-│ │ └─ ui/ShipCard.tsx
-│ └─ vtype/model/types.ts
-├─ features/
-│ ├─ favorites/model/slice.ts
-│ ├─ language-switcher/ui/LanguageSwitcher.tsx
-│ └─ theme-switcher/ui/ThemeSwitcher.tsx
-├─ pages/
-│ ├─ ship-details/ui/ShipDetailsPage.tsx
-│ └─ ships-list/ui/ShipsListPage.tsx
-├─ shared/
-│ ├─ api/{rtk.ts, services.ts}
-│ ├─ lib/{bus.ts, debounce.ts, i18n.ts, roman.ts}
-│ ├─ styles/{globals.scss,tokens.scss}
-│ └─ ui/{PaginationBar.tsx,Skeletons.tsx}
-├─ widgets/
-│ ├─ filters-panel/ui/FiltersPanel.tsx
-│ └─ header/ui/{Header.tsx}
-└─ test/
-└─ test-utils.tsx # helper для тестов
-```
----
-
-## 🌍 Локализация
-
-- Все ключи интерфейса лежат в `shared/lib/i18n.ts` внутри объекта `resources`.
-- Дополнительно имеется словарь `nations_short.*` (например, `usa → USA`, `japan → Japan`, `ru → CCCP/USSR` и т.д.), который используется в карточках кораблей.
-
----
-
-## 🎛 Темы
-
-- Текущее значение темы сохраняется под ключом `theme` в `localStorage` (`'light' | 'dark'`).
-- Атрибут `data-theme` на `<html>` синхронизируется провайдером и используется для CSS-переменных.
-
----
-
-## 🧪 Тесты
-```
-npm run test
-```
-UI-панель Vitest:
-```
-npm run test:ui
-```
-Покрытие:
-```
-npm run test:coverage
-```
-### 🧪 Покрываем
-- toRoman() — корректность преобразования уровней
-- useDebouncedValue() — отложенное значение
-- bus — подписка/отписка/emit
-- FiltersPanel — наличие основных контролов
-- Splash — показ при первом визите и автоскрытие
-
----
-
-## 🔧 Установка и запуск
-
-# Установка зависимостей
-```
-npm i
+├── app/             # провайдеры, splash, вход
+├── entities/        # ship, nation, vtype
+├── features/        # избранное, язык, тема
+├── pages/           # список кораблей, детали
+├── shared/          # api, lib, стили, общие UI
+└── widgets/         # шапка, панель фильтров
 ```
 
-# Запуск дев-сервера
-```
+## Локализация
+
+Тексты интерфейса задаются в `shared/lib/i18n.ts` (объект `resources`).  
+Короткие подписи наций — в словаре `nations_short` для карточек.
+
+## Темы
+
+Тема хранится в `localStorage` (`theme`: `light` | `dark`). На `<html>` вешается `data-theme` для CSS-переменных (`--panel`, `--text`, `--border` и др.).
+
+## Скрипты
+
+| Команда                 | Назначение              |
+| ----------------------- | ----------------------- |
+| `npm run dev`           | dev-сервер (Vite)       |
+| `npm run build`         | production-сборка       |
+| `npm run preview`       | предпросмотр `dist`     |
+| `npm run test`          | тесты (Vitest)          |
+| `npm run test:ui`       | Vitest UI               |
+| `npm run test:coverage` | покрытие                |
+
+После `npm run dev` приложение: **http://localhost:5173**
+
+## Деплой (Vercel)
+
+Сборка для продакшена: `npm run build` (`vite build --mode vercel`, см. `.env.vercel`).  
+Настройки проекта: [`vercel.json`](./vercel.json) (команда сборки, каталог `dist`, `npm ci`).  
+Запросы к игровому API идут через same-origin прокси **`/api`** (Edge Function в `api/`), чтобы обойти CORS в браузере.
+
+## Тесты (что покрыто)
+
+- `toRoman()` — уровни кораблей;
+- `useDebouncedValue()`;
+- шина событий `bus`;
+- `FiltersPanel` — ключевые контролы;
+- `Splash` — показ и скрытие.
+
+## Установка
+
+```bash
+npm ci
 npm run dev
 ```
-### Откроется http://localhost:5173
 
-# Прод-сборка
-```
+```bash
 npm run build
-```
-
-### Локальный предпросмотр сборки
-```
 npm run preview
 ```
-
