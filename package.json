@@ -7,8 +7,8 @@
     "dev": "vite",
     "preview": "vite preview --port 5173",
     "clean": "rimraf dist",
-    "build": "vite build",
-    "build:vercel": "npm run clean && vite build --mode vercel",
+    "build": "npm run clean && vite build --mode vercel",
+    "build:vercel": "npm run build",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage"
