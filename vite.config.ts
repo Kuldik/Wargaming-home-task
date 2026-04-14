@@ -1,9 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 /** Только деплой с корня домена (Vercel). Не используйте подкаталог в base — иначе 404 ассетов. */
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), cloudflare()],
   base: '/',
   test: {
     environment: 'jsdom',
